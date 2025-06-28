@@ -1,42 +1,57 @@
 // devices.tsx
 
-import Paho from 'paho-mqtt'; // Default import
+import Paho from 'paho-mqtt';
 import React, { useEffect, useRef, useState } from 'react';
 import { Alert, FlatList, StyleSheet, Switch, Text, View } from 'react-native';
 
 const devices = [
   { id: '1', name: 'Cooler', topic: 'home/cooler' },
-  // You can add more devices here
+  { id: '2', name: 'Fan', topic: 'home/fan' },
 ];
 
 export default function DevicesScreen() {
-  const [deviceStates, setDeviceStates] = useState<{ [key: string]: boolean }>({ '1': false });
-  const client = useRef<any>(null); // Use 'any' if TS errors persist; otherwise use 'Paho.Client'
+  const [deviceStates, setDeviceStates] = useState<{ [key: string]: boolean }>({ '1': false, '2': false });
+  const client = useRef<any>(null); // Avoid using Paho.Client due to TS error
 
   useEffect(() => {
-    client.current = new Paho.Client(
+    const mqttClient = new Paho.Client(
       'b4eede0090e842d887859ec05b1d7a3c.s1.eu.hivemq.cloud',
-      Number(8884),
-      '/mqtt', // Important for WebSocket over TLS
+      8884,
+      '/mqtt',
       `clientId-${Math.random().toString(16).slice(2)}`
     );
 
-    client.current.onConnectionLost = (responseObject: any) => {
+    client.current = mqttClient;
+
+    mqttClient.onConnectionLost = (responseObject: any) => {
       if (responseObject.errorCode !== 0) {
-        console.log('MQTT connection lost:', responseObject.errorMessage);
+        console.log('⚠️ MQTT connection lost:', responseObject.errorMessage);
       }
     };
 
-    client.current.onMessageArrived = (message: any) => {
-      console.log('📩 Message arrived:', message.payloadString);
+    mqttClient.onMessageArrived = (message: any) => {
+      const topic = message.destinationName;
+      const payload = message.payloadString;
+
+      const targetDevice = devices.find(device => device.topic === topic);
+      if (targetDevice) {
+        const isOn = payload.trim().toUpperCase() === 'ON';
+        setDeviceStates(prev => ({
+          ...prev,
+          [targetDevice.id]: isOn,
+        }));
+      }
     };
 
-    client.current.connect({
+    mqttClient.connect({
       useSSL: true,
       userName: 'Arjun',
       password: 'Arjun@123',
       onSuccess: () => {
         console.log('✅ MQTT connected');
+        devices.forEach(device => {
+          mqttClient.subscribe(device.topic);
+        });
       },
       onFailure: (err: any) => {
         console.log('❌ MQTT connect failed:', err.errorMessage);
@@ -45,8 +60,8 @@ export default function DevicesScreen() {
     });
 
     return () => {
-      if (client.current?.isConnected()) {
-        client.current.disconnect();
+      if (mqttClient?.isConnected()) {
+        mqttClient.disconnect();
       }
     };
   }, []);
@@ -63,7 +78,7 @@ export default function DevicesScreen() {
       const message = new Paho.Message(newState ? 'ON' : 'OFF');
       message.destinationName = topic;
       client.current.send(message);
-      console.log(`📤 Published to ${topic}: ${message.payloadString}`);
+      console.log(`📤 Sent to ${topic}: ${message.payloadString}`);
     } else {
       console.log('⚠️ MQTT client not connected');
     }
