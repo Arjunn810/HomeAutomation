@@ -7,10 +7,15 @@ import { Alert, FlatList, StyleSheet, Switch, Text, View } from 'react-native';
 const devices = [
   { id: '1', name: 'Cooler', topic: 'home/cooler' },
   { id: '2', name: 'Fan', topic: 'home/fan' },
-];
+  { id: '3', name: 'Light', topic: 'home/light' },
+  { id: '4', name: 'Heater', topic: 'home/heater' },
+  ];
 
 export default function DevicesScreen() {
-  const [deviceStates, setDeviceStates] = useState<{ [key: string]: boolean }>({ '1': false, '2': false });
+  // Dynamically initialize deviceStates for all devices
+  const [deviceStates, setDeviceStates] = useState<{ [key: string]: boolean }>(
+    Object.fromEntries(devices.map(device => [device.id, false]))
+  );
   const client = useRef<any>(null); // Avoid using Paho.Client due to TS error
 
   useEffect(() => {
@@ -51,6 +56,11 @@ export default function DevicesScreen() {
         console.log('✅ MQTT connected');
         devices.forEach(device => {
           mqttClient.subscribe(device.topic);
+          // Force device OFF on connect
+          const offMsg = new Paho.Message('OFF');
+          offMsg.destinationName = device.topic;
+          mqttClient.send(offMsg);
+          console.log(`🔻 Forced OFF sent to ${device.topic}`);
         });
       },
       onFailure: (err: any) => {
