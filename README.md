@@ -16,19 +16,30 @@ a 4-channel relay, and MQTT protocol over TLS via HiveMQ Cloud to ensure secure 
 **📦 Hardware Setup**
 
 ESP32 Dev Board
+
 4-Channel Relay Module
+
 4 AC Devices (Cooler, Fan, Light, Heater)
+
 USB Cable (for power & programming)
+
 Jumper Wires
+
 Breadboard or PCB (optional)
 
 **Relay Channels:**
 
 -Channel	Device	ESP32 Pin
+
   IN1	    Cooler	 GPIO 5
+
   IN2	    Fan	     GPIO 18
+  
   IN3	    Light	   GPIO 19
+  
   IN4	    Heater	 GPIO 21
+
+  
 
 ⚠️ Ensure proper isolation between AC devices and low-voltage electronics.
 
@@ -36,13 +47,17 @@ Breadboard or PCB (optional)
 
 -Install Node.js, npm, and Expo CLI
 -Clone the project and navigate to the app directory:
+
   git clone https://github.com/Arjunn810/homeAutomation.git
+
   cd homeAutomation
 
 -Install dependencies:
+
   npm install
 
 -Run the app:
+
   npx expo start
 
 Open in the Expo Go app (Android/iOS) to control devices.
