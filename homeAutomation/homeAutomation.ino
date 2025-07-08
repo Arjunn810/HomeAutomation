@@ -4,14 +4,14 @@
 #include <PubSubClient.h>
 
 // WiFi credentials
-const char* ssid = "MIE";
-const char* password = "LEN9zJ3RKr33dHx";
+const char* ssid = "Your Wi-Fi SSID";
+const char* password = "Your Password";
 
 // HiveMQ broker settings
-const char* mqtt_server = "b4eede0090e842d887859ec05b1d7a3c.s1.eu.hivemq.cloud";
-const int mqtt_port = 8883;
-const char* mqtt_user = "Arjun";
-const char* mqtt_pass = "Arjun@123";
+const char* mqtt_server = "brocker link";
+const int mqtt_port = port;
+const char* mqtt_user = "";
+const char* mqtt_pass = "";
 
 // MQTT topics
 const char* cooler_topic = "home/cooler";
