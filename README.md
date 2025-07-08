@@ -7,16 +7,11 @@ a 4-channel relay, and MQTT protocol over TLS via HiveMQ Cloud to ensure secure 
 
 **✅ Features:-**
 
-📱 Control 4 different appliances from your smartphone.
-
-🌐 Real-time sync via HiveMQ Cloud MQTT Broker.
-
-🔒 TLS-secured communication between app and device.
-
-🧠 ESP32 microcontroller handles relay switching.
-
-📦 React Native (Expo) based mobile interface.
-
+- 📱 Control 4 different appliances from your smartphone.
+- 🌐 Real-time sync via HiveMQ Cloud MQTT Broker.
+- 🔒 TLS-secured communication between app and device.
+- 🧠 ESP32 microcontroller handles relay switching.
+- 📦 React Native (Expo) based mobile interface.
 
 **📦 Hardware Setup**
 
@@ -36,14 +31,12 @@ Breadboard or PCB (optional)
 
 -Channel	Device	ESP32 Pin
 
-  IN1	    Cooler	 GPIO 5
-
-  IN2	    Fan	     GPIO 18
-  
-  IN3	    Light	   GPIO 19
-  
-  IN4	    Heater	 GPIO 21
-
+  |  |  |  |
+  |---|---|---|
+  | IN1	|    Cooler	| GPIO 5  |
+  | IN2	|    Fan	  | GPIO 18 |
+  | IN3	|    Light	| GPIO 19 |
+  | IN4	|    Heater	| GPIO 21 |
   
 
 ⚠️ Ensure proper isolation between AC devices and low-voltage electronics.
