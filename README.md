@@ -56,35 +56,33 @@ Breadboard or PCB (optional)
 
 -Run the app:
 
-  npx expo start
+  `npx expo start`
 
 Open in the Expo Go app (Android/iOS) to control devices.
 
 **☁️ MQTT Configuration (HiveMQ Cloud)**
 
--Create a free HiveMQ Cloud account.
+Create a free HiveMQ Cloud account.
 
-  Set up a broker instance and note the hostname, port (TLS), username, and password.
-  
-  Use the same credentials in both the app and ESP32 firmware.
+ - Set up a broker instance and note the hostname, port (TLS), username, and password.
+ - Use the same credentials in both the app and ESP32 firmware.
   
 -Use topics like:
 
-  home/devices*
-  
-  Messages: cooler_on, fan_off, light_on, heater_off, etc.
+- home/devices*  
+- Messages: cooler_on, fan_off, light_on, heater_off, etc.
 
 **🧪 Testing Instructions**
 
--Upload the firmware to ESP32 using Arduino IDE.
+- Upload the firmware to ESP32 using Arduino IDE.
 
--Power the ESP32 and connect the relay to appliances.
+- Power the ESP32 and connect the relay to appliances.
 
--Launch the app.
+- Launch the app.
 
--Tap buttons to turn each device ON/OFF.
+- Tap buttons to turn each device ON/OFF.
 
--Watch relays switch and devices respond in real-time.
+- Watch relays switch and devices respond in real-time.
 
 📸 Screenshots
 -Added in project Dir
