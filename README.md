@@ -46,14 +46,13 @@ Breadboard or PCB (optional)
 -Install Node.js, npm, and Expo CLI
 
 -Clone the project and navigate to the app directory:
-
+```
   git clone https://github.com/Arjunn810/homeAutomation.git
-
   cd homeAutomation
-
+```
 -Install dependencies:
 
-  npm install
+  `npm install`
 
 -Run the app:
 
