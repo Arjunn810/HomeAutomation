@@ -20,8 +20,8 @@ export default function DevicesScreen() {
 
   useEffect(() => {
     const mqttClient = new Paho.Client(
-      'b4eede0090e842d887859ec05b1d7a3c.s1.eu.hivemq.cloud',
-      8884,
+      'your brocker Id',
+      port,
       '/mqtt',
       `clientId-${Math.random().toString(16).slice(2)}`
     );
@@ -50,8 +50,8 @@ export default function DevicesScreen() {
 
     mqttClient.connect({
       useSSL: true,
-      userName: 'Arjun',
-      password: 'Arjun@123',
+      userName: 'your username',
+      password: 'your pasword',
       onSuccess: () => {
         console.log('✅ MQTT connected');
         devices.forEach(device => {
